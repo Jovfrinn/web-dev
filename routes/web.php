@@ -16,3 +16,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('fronsite.home');
 });
+
+
+Route::get('/detail', [
+    'uses' => 'App\Http\Controllers\DetailController@index',
+    'as' => 'detail'
+]);
