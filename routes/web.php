@@ -16,6 +16,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('fronsite.home');
 });
+Route::get('/admin', function () {
+    return view('backsite.home');
+});
 Route::get('/category-makanan-snack', function () {
     return view('fronsite.halaman-makanan.makanan-snack');
 })->name('category-snack');
@@ -70,3 +73,9 @@ Route::get('/category-minuman-teh', function () {
     return view('fronsite.halaman-minuman.minuman-teh');
 })->name('category-teh');
 
+
+
+Route::get('/detail', [
+    'uses' => 'App\Http\Controllers\DetailController@index',
+    'as' => 'detail'
+]);
