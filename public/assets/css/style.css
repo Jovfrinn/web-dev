@@ -1,5 +1,5 @@
-/* 
-*{
+
+/* *{
     border: 1px solid red;
 } */
 /* Home Page */
@@ -9,7 +9,7 @@ a{
 .poster{
     display: flex;
     justify-content: center;
-    align-items: center;   
+    align-items: center;
     margin-top: 2rem;
 }
 .poster .img-poster{
@@ -31,10 +31,10 @@ a{
     -webkit-box-shadow: 0px 0px 10px -2px rgba(0,0,0,0.75);
     -moz-box-shadow: 0px 0px 10px -2px rgba(0,0,0,0.75);
     margin-top: 3px;
-    }   
+    }
 .card-list img{
-    width: auto;
-    height: 192px;
+    width: 130px;
+    height: 120px;
 }
 
 .card-list .title-produk, .price{
@@ -72,10 +72,77 @@ color: black !important;
 }
 .content{
     box-shadow: 0px 0px 10px -2px rgba(0,0,0,0.75);
-    -webkit-box-shadow: 0px 0px 10px -2px rgba(0,0,0,0.75);
+    -webkit-box-shadow: 0px 0px px -2px rgba(0,0,0,0.75);
     -moz-box-shadow: 0px 0px 10px -2px rgba(0,0,0,0.75);
     border-radius: 15px;
     margin-top: 2rem;
     padding-top: 10px;
     padding-bottom: 2px;
 }
+
+.container-beranda {
+    background-color: rgb(172, 168, 168);
+}
+
+.nopad-beranda {
+    margin: 0;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+    padding: 2px;
+}
+
+.container-beranda .nopad-beranda .p-page {
+    margin-top: 12px;
+    color: white;
+}
+
+.container-beranda .nopad-beranda .link-beranda {
+    text-decoration: none;
+    color: white;
+    margin-left: 3px;
+}
+
+.container-beranda .nopad-beranda .link-beranda:hover {
+    text-decoration: none;
+    color: rgb(104, 194, 239);
+    margin-left: 3px;
+}
+
+.sidebar {
+    margin: 0;
+    padding: 0;
+    width: 200px;
+    background-color: #f1f1f1;
+    position: fixed;
+    height: 100%;
+    overflow: auto;
+    box-sizing: border-box;
+    border-right: 8px solid #e0e0e0;
+       box-shadow: 0px 0px 10px -2px rgba(0,0,0,0.75);
+    -webkit-box-shadow: 0px 0px px -2px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 0px 10px -2px rgba(0,0,0,0.75);
+}
+  .sidebar a {
+    display: block;
+    color: black;
+    padding: 16px;
+    text-decoration: none;
+  }
+
+  .sidebar a.active {
+    background-color: #5fc6a0;
+    color: white;
+  }
+
+  .sidebar a:hover:not(.active) {
+    background-color: #ff9900;
+    color: white;
+  }
+
+  div.content {
+    margin-left: 200px;
+    padding: 1px 16px;
+  }
+
