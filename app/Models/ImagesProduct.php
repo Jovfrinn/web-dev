@@ -7,8 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class ImagesProduct extends Model
 {
-    protected $table = 'imagesproduct';
+    protected $table = 'images_products';
     use HasFactory;
     protected $fillable =['imageName', 'id_product', 'timestamp'];
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class, 'product_id');
+    }
 }
 

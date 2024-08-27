@@ -4,16 +4,20 @@
 <div class="container">
     <div class="row mx-auto detail-product-img">
         <div class="col-md-4">
-            <img  src="https://dandan-assets.s3-ap-southeast-1.amazonaws.com/public/product/321249.jpg" class="img-detail">
+            @foreach($detail_product->images as $image)
+            <img  src="{{asset('assets/img/'.$image->imageName)}}" class="img-detail">
+            @endforeach
+            @foreach($detail_product->images as $image)
             <div class="section-img">
-                <img src="https://dandan-assets.s3-ap-southeast-1.amazonaws.com/public/product/321249.jpg" class="img-support">
+                <img src="{{asset('assets/img/'.$image->imageName)}}" class="img-support">
             </div>
+            @endforeach
         </div>
         <div class="col-md-8">
             <div class="detail-product">
-                <div class="title-product">Sunlight? Sabun Cuci Piring</div>
-                <div class="ready-stock">Stock: 200</div>
-                <div class="price-product">Rp. 2.500</div>
+                <div class="title-product">{{$detail_product->name_product}}</div>
+                <div class="ready-stock">Stock {{$detail_product->stock}}</div>
+                <div class="price-product">{{number_format($detail_product->price,0,'.','.')}}</div>
                 <div class="quantity">
                     <form>
                         <label for="quantity">Quantity : </label>
@@ -27,9 +31,7 @@
 
             <div class="detail-description">
                 <div class="description-title">Deskripsi</div>
-                    <div class="text-description">
-                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Perferendis unde dicta libero, deleniti cum incidunt excepturi iure ipsam fugiat fuga magnam eveniet ipsum fugit repellendus inventore voluptatem, error beatae aspernatur facilis. Explicabo impedit molestias magnam. Nesciunt similique assumenda tenetur optio repellat dolorum beatae harum earum quis saepe deleniti commodi vel iure, voluptatem dolor quidem deserunt rem aut qui nostrum cum reprehenderit odio? Minus maiores accusamus quis, ipsa quaerat ipsam velit illum libero dignissimos fugit nam necessitatibus perspiciatis commodi numquam dolor, modi quo ducimus adipisci animi asperiores sequi. Deserunt nisi dolores eligendi, fuga debitis ratione sunt dicta perspiciatis quaerat nobis commodi!
-                    </div>
+                    <div class="text-description">{{$detail_product->description_product}}</div>
             </div>
         </div>
     </div>

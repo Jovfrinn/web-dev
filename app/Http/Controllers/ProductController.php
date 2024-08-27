@@ -2,21 +2,49 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ImagesProduct;
 use App\Models\Product;
+use Database\Seeders\ImagesProductsSeeder;
 use Illuminate\Http\Request;
 
-class DetailController extends Controller
+class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
+        $products = Product::orderBy('created_at', 'DESC')->with('images')->get();
+        $data['products'] = $products;
+
+        return view('fronsite.home',$data);
     }
 
     /**
      * Show the form for creating a new resource.
      */
+
+    public function addStock($id, $amount){
+        $products = Product::findOrFail($id);
+        $products->increaseStock($amount);
+        
+        return redirect()->back()->with('Success', 'Stock berhasil di tambahkan');
+    }
+
+    public function reduceStock($id, $amount)
+    {
+        try {
+            $products = Product::findOrFail($id);
+            $products->decreaseStock($amount);
+
+            return redirect()->back()->with('success', 'Stok berhasil dikurangi.');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', $e->getMessage());
+        }
+    }
+
+
+
     public function create()
     {
         //
@@ -35,9 +63,7 @@ class DetailController extends Controller
      */
     public function show(string $id)
     {
-        $product = Product::with('images')->findOrFail($id);
-        $data['detail_product'] = $product;
-        return view('fronsite.detail',$data);
+        //
     }
 
     /**

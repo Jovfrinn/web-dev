@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Product;
+use App\Models\Categories;
 use Illuminate\Http\Request;
 
-class DetailController extends Controller
+class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
+        //
     }
 
     /**
@@ -35,9 +36,14 @@ class DetailController extends Controller
      */
     public function show(string $id)
     {
-        $product = Product::with('images')->findOrFail($id);
-        $data['detail_product'] = $product;
-        return view('fronsite.detail',$data);
+        $categories = Categories::findOrFail($id);
+        $products = $categories->products()->with('images')->get();
+        // dd($products)
+
+        $data['categories'] = $categories;
+        $data['products'] = $products;
+
+        return view('fronsite.category', $data);
     }
 
     /**
