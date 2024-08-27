@@ -17,8 +17,14 @@ Route::get('/', function () {
     return view('fronsite.home');
 });
 Route::get('/admin', function () {
-    return view('backsite.home');
+    return view('backsite.dashboard');
 });
+
+
+Route::get('/detail', [
+    'uses' => 'App\Http\Controllers\DetailController@index',
+    'as' => 'detail'
+]);
 Route::get('/category-makanan-snack', function () {
     return view('fronsite.halaman-makanan.makanan-snack');
 })->name('category-snack');
