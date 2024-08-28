@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,63 +22,47 @@ Route::get('/admin', function () {
 });
 
 
-Route::get('/detail', [
-    'uses' => 'App\Http\Controllers\DetailController@index',
+Route::get('/detail/{id}', [
+    'uses' => 'App\Http\Controllers\DetailController@show',
     'as' => 'detail'
 ]);
-Route::get('/category-makanan-snack', function () {
-    return view('fronsite.halaman-makanan.makanan-snack');
-})->name('category-snack');
 
-Route::get('/category-makanan-kalengan', function () {
-    return view('fronsite.halaman-makanan.makanan-kalengan');
-})->name('category-kalengan');
+Route::post('/add-to-cart{id}',  [
+    'uses' => 'App\Http\Controllers\CartController@addToCart',
+    'as' => 'cart.add'
+]);
+Route::get('/shopping_cart',  [
+    'uses' => 'App\Http\Controllers\CartController@index',
+    'as' => 'cart.show'
+]);
+Route::delete('/shopping_cart/delete/{product_id}',  [
+    'uses' => 'App\Http\Controllers\CartController@destroy',
+    'as' => 'cart.delete'
+]);
+Route::get('/category/{id}', [
+    'uses' => 'App\Http\Controllers\CategoryController@show',
+    'as' => 'get.category'
+] );
+Route::get('/admin',  [
+    'uses' => 'App\Http\Controllers\backsite\StockController@index',
+    'as' => 'get.admin'
+]);
+Route::post('/product/{id}/add-stock', [
+    'uses' => 'App\Http\Controllers\backsite\StockController@addStock',
+    'as' => 'product.add.stock'
+] );
+Route::post('/product/{id}/decrase-stock', [
+    'uses' => 'App\Http\Controllers\backsite\StockController@reduceStock',
+    'as' => 'product.reduce.stock'
+] );
 
-Route::get('/category-makanan-biskuit', function () {
-    return view('fronsite.halaman-makanan.makanan-roti-biskuit');
-})->name('category-biskuit');
-
-Route::get('/category-makanan-instan', function () {
-    return view('fronsite.halaman-makanan.makanan-instan');
-})->name('category-instan');
-
-Route::get('/category-makanan-manis', function () {
-    return view('fronsite.halaman-makanan.makanan-manis');
-})->name('category-manis');
+Route::get('/search-product', [
+    'uses' => 'App\Http\Controllers\ProductController@search',
+    'as' => 'search.product'
+] );
 
 
 
-Route::get('/category-minuman-air-mineral', function () {
-    return view('fronsite.halaman-minuman.minuman-air-mineral');
-})->name('category-air-mineral');
-
-Route::get('/category-minuman-botol', function () {
-    return view('fronsite.halaman-minuman.minuman-botol');
-})->name('category-botol');
-
-Route::get('/category-minuman-jus', function () {
-    return view('fronsite.halaman-minuman.minuman-jus');
-})->name('category-jus');
-
-Route::get('/category-minuman-kopi', function () {
-    return view('fronsite.halaman-minuman.minuman-kopi');
-})->name('category-kopi');
-
-Route::get('/category-minuman-ringan', function () {
-    return view('fronsite.halaman-minuman.minuman-ringan');
-})->name('category-minuman-ringan');
-
-Route::get('/category-minuman-sirup', function () {
-    return view('fronsite.halaman-minuman.minuman-sirup');
-})->name('category-sirup');
-
-Route::get('/category-minuman-susu', function () {
-    return view('fronsite.halaman-minuman.minuman-susu');
-})->name('category-susu');
-
-Route::get('/category-minuman-teh', function () {
-    return view('fronsite.halaman-minuman.minuman-teh');
-})->name('category-teh');
 
 
 
@@ -85,3 +70,4 @@ Route::get('/detail', [
     'uses' => 'App\Http\Controllers\DetailController@index',
     'as' => 'detail'
 ]);
+Route::resource('/', ProductController::class);
