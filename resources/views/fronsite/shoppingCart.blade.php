@@ -30,10 +30,16 @@
                         </button>
                     </form>
             </td>
+
+            <td>
+                <form action="{{ route('checkout.process')}}" method="POST">
+                    @csrf
+                    <button type="submit" class="btn btn-primary btn-block mt-3">Proses Checkout</button>
+                </form>
+            </td>
             </tr>
             @endforeach
-
-            <!-- Add more products as needed -->
+             <!-- Add more products as needed -->
         </tbody>
     </table>
     <div class="total">
@@ -41,4 +47,8 @@
     </div>
     <a href="/" class="btn">Continue Shopping</a>
 </div>
+
+
+
+
 @endsection

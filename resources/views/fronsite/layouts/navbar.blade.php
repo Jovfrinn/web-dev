@@ -18,41 +18,59 @@
     <title>Hello, world!</title>
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color:#3795BD">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="#">TEFA SMK CITRA NEGARA</a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="/">Home</a>
-              </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Categories
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  @foreach(getCategory() as $category)
-                  <li><a class="dropdown-item" href="{{route('get.category',$category->id)}}" style="color: black">{{$category->name_categories}}</a></li>
-                  <li><hr class="dropdown-divider"></li>
-                  @endforeach
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color:#E387CC;">
+        <div class="container-fluid d-flex justify-content-between align-items-center">
+            <a class="navbar-brand" href="/">TEFA SMK CITRA NEGARA</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+                <!-- Pindahkan form search ke dalam div baru dengan class mx-auto -->
+                <div class="mx-auto">
+                    <form action="{{ route('search.product') }}" method="GET" class="d-flex  search-bar-center custom-search">
+                        <input type="text" name="query" class="form-control " placeholder="Cari produk..." aria-label="Search" value="{{ request('query') }}">
+                           <button class="btn-custom btn-outline-success" type="submit"><span class="material-symbols-outlined">
+                            search
+                            </span></button>
+                    </form>
+                </div>
+
+                <a href="/login" class="btn-login">Login</a>
+                <ul class="navbar-nav me-auto mb-2 ms-3 mb-lg-0">
+                    {{-- <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/">Home</a>
+                    </li> --}}
+                     {{-- <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Categories
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            @foreach(getCategory() as $category)
+                            <li><a class="dropdown-item" href="{{route('get.category',$category->id)}}" style="color: black">{{$category->name_categories}}</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            @endforeach
+                        </ul>
+                    </li> --}}
+                    <li class="nav-item">
+                        <a href="{{route('cart.show')}}"><i class="material-symbols-outlined" style="color:rgb(6, 6, 6); margin-top:9px; margin-left:3px;  ">
+                            shopping_cart
+                            </i>
+                            <span class="position-static top-0 start-100 translate-middle badge rounded-pill bg-danger ms-2">
+                                {{ session('cart_count', 0) }}
+                                <span class="visually-hidden">unread messages</span>
+                              </span>
+                        </a>
+
+                    </li>
+
                 </ul>
-              </li>
-              <li class="nav-item">
-                <a href="{{route('cart.show')}}"><i class="material-symbols-outlined" style="color:white; margin-top:9px; margin-left:3px;">
-                  shopping_cart
-                  </i>  <span id="cart-count" class="cart-count" style="color:white;">{{ session('cart_count', 0) }}</span></a>
-              </li>
-            </ul>
-            <form action="{{ route('search.product') }}" method="GET" class="d-flex">
-              <input type="text" name="query" class="form-control me-2" type="search" placeholder="Cari produk..." aria-label="Search" value="{{ request('query') }}">
-              <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
-          </div>
+            </div>
         </div>
-      </nav>
+    </nav>
+
+
+
 
       @yield('content')
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
