@@ -7,6 +7,7 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="{{asset('assets/css/style.css')}}">
+   
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
@@ -30,7 +31,12 @@
                 <a class="nav-link active" aria-current="page" href="#">Home</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
+                {{-- @dd(Auth::user()) --}}
+                @if(Auth::check())
+                <a class="nav-link" href="{{route('logout')}}">Logout</a>
+                @else
+                <a class="nav-link" href="{{route('login')}}">Login</a>
+                @endif
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -44,9 +50,12 @@
                 </ul>
               </li>
               <li class="nav-item">
+
                 <a href="{{route('cart.show')}}"><i class="material-symbols-outlined">
                   shopping_cart
-                  </i>  <span id="cart-count" class="cart-count">{{ session('cart_count', 0) }}</span></a>
+                  </i>
+                  <span id="cart-count" class="cart-count">{{session('cart')}}</span>
+                </a>
               </li>
             </ul>
             <form class="d-flex">
@@ -99,5 +108,6 @@
   ]
 });
     </script>
+    @yield('script')
   </body>
 </html>

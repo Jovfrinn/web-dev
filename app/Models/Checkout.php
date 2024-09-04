@@ -7,7 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Checkout extends Model
 {
-    protected $table = 'checkout';
+    protected $table = 'checkouts';
     use HasFactory;
-    protected $fillable = ['checkout_id', 'product_id', 'quantity', 'price'];
+    protected $fillable = ['user_id', 'grand_total'];
+
+    public function details()
+    {
+        return $this->hasMany(CheckoutDetail::class);
+    }
 }

@@ -9,7 +9,7 @@ class ImagesProduct extends Model
 {
     protected $table = 'images_products';
     use HasFactory;
-    protected $fillable =['imageName', 'id_product', 'timestamp'];
+    protected $fillable =['imageName','is_thumb', 'id_product', 'timestamp'];
 
     public function product()
     {

@@ -25,7 +25,10 @@
             <div class="card-list d-flex flex-column align-items-center">
                 @foreach ($product->images as $image)
                 {{-- @dd($images) --}}
+                @if($image->is_thumb == 1)
+                {{-- <img src="{{asset('assets/img/'.$image->imageName)}}" alt=""> --}}
                 <img src="{{asset('assets/img/'.$image->imageName)}}" alt="">
+                @endif
                 @endforeach
                 <div class="title-produk">{{$product->name_product}}</div>
                 <div class="price">Rp {{$product->price}}</div>
