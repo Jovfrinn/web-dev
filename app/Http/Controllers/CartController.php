@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\shopping_cart;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
 {
@@ -12,16 +14,15 @@ class CartController extends Controller
      */
     public function index()
     {
-        $cart = session()->get('cart', []);
-        $totalPrice = 0;
-        foreach ($cart as $item) {
-            // Hitung total harga item dan tambahkan ke total harga
-            $totalPrice += $item['price'] * $item['quantity'];
-        }
-        // dd($totalPrice);
-        $data['totalPrice'] = $totalPrice;
-        $data['cart'] = $cart;
+        $cartItems = shopping_cart::where('user_id', Auth::id())->with(['product','product.images'])->orderBy('created_at', 'desc')->get();
+    
+        $grand_total = $cartItems->sum('sub_total');
+        $data['cartItems'] = $cartItems;
+        $data['grand_total'] = $grand_total;
+        $cart_count = session()->get('cart', []);
+        session()->put('cart', count($cartItems));
         return view('fronsite.shoppingCart', $data);
+
     }
 
     /**
@@ -33,28 +34,29 @@ class CartController extends Controller
     }
 
     public function addToCart(Request $request){
-        // $cart = session()->flush();
-        $cart = session()->get('cart', []);
-        $productId = $request->input('product_id');
-        $product = Product::findOrFail($productId);
-        if (isset($cart[$productId])) {
-            return redirect()->back()->with('anda memasukkan product');
-        } else {
-            $cart[$productId] = [
-                'quantity' => 1,
-                'id' => $product->id,
-                'name_product' => $product->name_product,
-                'description_product' => $product->description_product,
-                'price' => $product->price,
-                'category_id' => $product->category_id,
-            ];
+        $product = Product::findOrFail($request->product_id);
+        // dd($product->id);
 
+        $cartItem = shopping_cart::where('user_id', Auth::id())
+                                ->where('product_id', $product->id)
+                                ->first();
+       
+
+
+        if ($cartItem) {
+            return redirect()->back()->with('failed', 'Product already exist in Cart');
+        } else {
+            shopping_cart::create([
+                'user_id' => Auth::id(),
+                'product_id' => $product->id,
+                'quantity' => 1,
+                'sub_total' => $product->price * 1,
+            ]);
         }
 
-        session()->put('cart', $cart);
-        session()->put('cart_count', array_sum(array_column($cart, 'quantity')));
+        return redirect()->back()->with('success', 'Product added to cart!');
+    
 
-        return redirect()->back()->with('Success', 'Product berhasil di tambahkan');
     }
     /**
      * Store a newly created resource in storage.
@@ -85,30 +87,33 @@ class CartController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $product = Product::findOrFail($request->productId);
+
+        $cartItem = shopping_cart::findOrFail($id);
+        $cartItem->quantity = $request->input('quantity');
+        $cartItem->sub_total = $cartItem->quantity * $product->price;
+        $cartItem->save();
+    
+        return response()->json([ 
+            'status' => 'quary_ok',
+        ]);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Request $request,$productId)
+    public function destroy(Request $request,$id)
     {
-    $cart = session()->get('cart', []);
 
-    if (isset($cart[$productId])) {
-        unset($cart[$productId]);
+        $userId = Auth::id();
+        $productId = $request->input('productId');
 
-        session()->put('cart', $cart);
+        // Hapus entri dari tabel cart
+        shopping_cart::where('user_id', $userId)
+            ->where('product_id', $productId)
+            ->delete();
 
-        $cartCount = array_sum(array_column($cart, 'quantity'));
-        session()->put('cart_count', $cartCount);
-
-        return redirect()->back()->with('Berhasil menghapus product');
-    }
-
-    return response()->json([
-        'success' => false,
-        'message' => 'Product not found in cart.'
-    ]);
+        return redirect()->back()->with('success', 'Delete Product success');
+    
     }
 }

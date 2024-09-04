@@ -7,6 +7,7 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="{{asset('assets/css/style.css')}}">
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
@@ -26,7 +27,6 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
-                <!-- Pindahkan form search ke dalam div baru dengan class mx-auto -->
                 <div class="mx-auto">
                     <form action="{{ route('search.product') }}" method="GET" class="d-flex  search-bar-center custom-search">
                         <input type="text" name="query" class="form-control " placeholder="Cari produk..." aria-label="Search" value="{{ request('query') }}">
@@ -38,20 +38,6 @@
 
                 <a href="/login" class="btn-login">Login</a>
                 <ul class="navbar-nav me-auto mb-2 ms-3 mb-lg-0">
-                    {{-- <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/">Home</a>
-                    </li> --}}
-                     {{-- <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Categories
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            @foreach(getCategory() as $category)
-                            <li><a class="dropdown-item" href="{{route('get.category',$category->id)}}" style="color: black">{{$category->name_categories}}</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            @endforeach
-                        </ul>
-                    </li> --}}
                     <li class="nav-item">
                         <a href="{{route('cart.show')}}"><i class="material-symbols-outlined" style="color:rgb(6, 6, 6); margin-top:9px; margin-left:3px;  ">
                             shopping_cart
@@ -66,9 +52,15 @@
 
                 </ul>
             </div>
-        </div>
-    </nav>
-
+    {{-- @dd(Auth::user()) --}}
+                  {{-- <li class="nav-item">
+                @if(Auth::check())
+                <a class="nav-link" href="{{route('logout')}}">Logout</a>
+                @else
+                <a class="nav-link" href="{{route('login')}}">Login</a>
+                @endif
+              </li>
+ --}}
 
 
 
@@ -107,11 +99,9 @@
         slidesToScroll: 1
       }
     }
-    // You can unslick at a given breakpoint now by adding:
-    // settings: "unslick"
-    // instead of a settings object
   ]
 });
     </script>
+    @yield('script')
   </body>
 </html>

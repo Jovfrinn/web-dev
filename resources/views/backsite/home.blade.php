@@ -1,5 +1,5 @@
 @extends('backsite.layouts.sidebar')
-{{-- @section('backContent') --}}
+@section('backContent')
 <div class="container">
     <div class="content">
         <div class="title-content">Produk Terlaris</div>
@@ -31,4 +31,4 @@
         </div>
     </div>
   </div>
-  {{-- @ --}}
+  @endsection

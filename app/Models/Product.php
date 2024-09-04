@@ -9,7 +9,7 @@ class Product extends Model
 {
     protected $table = 'products';
     use HasFactory;
-    protected $fillable = ['name_product','description_product', 'price', 'stock_quantity', 'category_id', 'timestamp'];
+    protected $fillable = ['name_product','description_product', 'price', 'stock', 'category_id', 'timestamp'];
 
     public function images()
     {
@@ -37,5 +37,14 @@ class Product extends Model
             throw new \Exception('Stok tidak cukup');
         }
     }
+    public function checkout()
+    {
+        return $this->hasMany(Checkout::class);
+    }
+    public function checkoutDetails()
+    {
+        return $this->hasMany(CheckoutDetail::class, 'product_id');
+    }
+  
 }
 

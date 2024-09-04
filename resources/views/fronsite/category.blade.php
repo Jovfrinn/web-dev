@@ -1,5 +1,4 @@
 @extends('fronsite.layouts.navbar')
-
 @section('content')
 {{-- <div class="sidebar">
     @foreach(getCategory() as $category)
@@ -38,8 +37,15 @@
         <div class="list slider-slick">
             @foreach ($products as $data)
             <div class="card-list d-flex flex-column align-items-center">
+
                 @foreach($data->images as $image)
+
+                {{-- @foreach ($product->images as $image) --}}
+                {{-- @dd($images) --}}
+                @if($image->is_thumb == 1)
+                {{-- <img src="{{asset('assets/img/'.$image->imageName)}}" alt=""> --}}
                 <img src="{{asset('assets/img/'.$image->imageName)}}" alt="">
+                @endif
                 @endforeach
                 <div class="title-produk"><a href="{{route('detail', $data->id)}}">{{$data['name_product']}}</a></div>
                 <div class="price">Rp {{number_format($data->price,0,'.','.')}}</div>
@@ -53,6 +59,7 @@
                 </form>
             </div>
             @endforeach
+            {{-- @endforeach --}}
             <div class="card-list d-flex flex-column align-items-center">
                 <img src="https://www.sunlight.co.id/images/h0nadbhvm6m4/1VLa8YgpNnTTHS8hVcRpFx/f877e731e3474ef8f0b991083e3d69a1/U3VubGlnaHRfSmVydWtfTmlwaXMxLnBuZw/1080w-1080h/sunlight-jeruk-nipis.jpg" alt="">
                 <div class="title-produk">sunlight</div>
@@ -120,4 +127,5 @@
         // }
         // </script>
 @endsection
+
 

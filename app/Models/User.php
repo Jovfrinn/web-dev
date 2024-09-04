@@ -44,8 +44,4 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
-
-    public function checkout(){
-        return $this->hasMany(Checkout::class);
-    }
 }
