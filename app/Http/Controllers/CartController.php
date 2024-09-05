@@ -15,7 +15,7 @@ class CartController extends Controller
     public function index()
     {
         $cartItems = shopping_cart::where('user_id', Auth::id())->with(['product','product.images'])->orderBy('created_at', 'desc')->get();
-    
+
         $grand_total = $cartItems->sum('sub_total');
         $data['cartItems'] = $cartItems;
         $data['grand_total'] = $grand_total;
@@ -40,7 +40,7 @@ class CartController extends Controller
         $cartItem = shopping_cart::where('user_id', Auth::id())
                                 ->where('product_id', $product->id)
                                 ->first();
-       
+
 
 
         if ($cartItem) {
@@ -55,7 +55,7 @@ class CartController extends Controller
         }
 
         return redirect()->back()->with('success', 'Product added to cart!');
-    
+
 
     }
     /**
@@ -93,8 +93,8 @@ class CartController extends Controller
         $cartItem->quantity = $request->input('quantity');
         $cartItem->sub_total = $cartItem->quantity * $product->price;
         $cartItem->save();
-    
-        return response()->json([ 
+
+        return response()->json([
             'status' => 'quary_ok',
         ]);
     }
@@ -114,6 +114,6 @@ class CartController extends Controller
             ->delete();
 
         return redirect()->back()->with('success', 'Delete Product success');
-    
+
     }
 }

@@ -44,10 +44,4 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
-    public function shoppingCart()
-    {
-        return $this->hasMany(shopping_cart::class);
-    }
-    
-    
 }

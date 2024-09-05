@@ -20,11 +20,14 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('fronsite.home');
 });
+Route::get('/admin', function () {
+    return view('backsite.dashboard');
+});
 
 Auth::routes();
 
 Route::middleware('auth')->group(function(){
- 
+
     Route::get('/backsite/stock',  [
         'uses' => 'App\Http\Controllers\backsite\StockController@index',
         'as' => 'get.stock'
@@ -37,26 +40,26 @@ Route::middleware('auth')->group(function(){
         'uses' => 'App\Http\Controllers\backsite\StockController@editStock',
         'as' => 'product.edit.stock'
     ] );
-    
-    
+
+
     // product backsite
     Route::get('/backsite/product', [
         'uses' => 'App\Http\Controllers\backsite\ProductController@index',
         'as' => 'get.product.backsite'
     ] );
-    Route::get('/backsite/product/add', function(){ 
+    Route::get('/backsite/product/add', function(){
         return view('backsite.add-product');
     });
     Route::post('/backsite/product', [
         'uses' => 'App\Http\Controllers\backsite\ProductController@store',
         'as' => 'post.product.backsite'
     ]);
-    
+
     Route::get('/backsite/product/edit/{id}',  [
         'uses' => 'App\Http\Controllers\backsite\ProductController@edit',
         'as' => 'edit.product.backsite'
     ]);
-    
+
     Route::put('/backsite/product/update/{id}', [
         'uses' => 'App\Http\Controllers\backsite\ProductController@update',
         'as' => 'put.product.backsite'
@@ -94,9 +97,9 @@ Route::put('/cart/{id}', [CartController::class, 'update'])->name('cart.update')
         'uses' => 'App\Http\Controllers\CheckoutController@index',
             'as' => 'checkout.show'
         ]);
-        
+
         Route::get('/create-snap-token', [PaymentController::class, 'createSnapToken'])->name('snap.token');
-        
+
         Route::get('/delete-cart-checkout',[
                 'uses' => 'App\Http\Controllers\CheckoutController@deleteCartChekout',
                     'as' => 'delete.checkoutCart'
@@ -116,3 +119,11 @@ Route::get('/category/{id}', [
     'uses' => 'App\Http\Controllers\CategoryController@show',
     'as' => 'get.category'
 ] );
+
+Route::get('/search-product', [
+    'uses' => 'App\Http\Controllers\ProductController@search',
+    'as' => 'search.product'
+] );
+
+Route::resource('/', ProductController::class);
+

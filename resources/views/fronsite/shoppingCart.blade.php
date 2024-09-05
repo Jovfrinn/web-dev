@@ -14,20 +14,33 @@
             </tr>
         </thead>
         <tbody>
-            
+
+
+            {{-- @foreach($cart as $data)
+            <tr>
+                <td>{{$data['name_product']}}</td>
+                <td>{{$data['description_product']}}</td>
+                <td>1</td>
+                <td>{{number_format($data['price'],0,'.','.')}}</td> --}}
+
+
             @foreach($cartItems as $data)
             <tr>
                 {{-- @dd($data->product->images) --}}
                 @foreach ($data->product->images as $image)
                 @if($image->is_thumb == 1)
                 <td><img class="img-cart" src="{{asset('assets/img/'. $image->imageName)}}" alt=""></td>
-                @endif  
+                @endif
                 @endforeach
-                
+
                 <td>{{$data->product->name_product}}</td>
                 <td id="price" class="price-cart">Rp {{number_format($data->product->price,0,'.','')}}</td>
+
+
                 <td>
+                        <div class="quantity d-flex justify-content-center" tabindex="0">
                         <input type="number" class="quantity-input" name="quantity" value="{{$data->quantity}}" min="1" id="quantity" data-id="{{$data->id}}" data-id-product="{{$data->product->id}}">
+                        </div>
                 </td>
                 <td>Rp {{$data->sub_total}}</td>
                 <td>
@@ -43,8 +56,6 @@
             </tr>
             @endforeach
 
-
-            <!-- Add more products as needed -->
         </tbody>
     </table>
     <form action="{{route('post.checkout')}}" method="POST">
@@ -52,22 +63,23 @@
         <p><strong>Grand Total: <span id="total">Rp {{$grand_total}}</span> </strong></p>
             @csrf
             <input type="hidden" name="user" value="{{Auth::user()->id}}">
-            <input type="hidden" name="user" value="{{Auth::user()->id}}">
             <input type="hidden" name="grand_total" value="{{$grand_total}}">
-            
+
         </div>
+        {{-- @endforeach --}}
         <button type="submit">Continue Shopping</button>
     </form>
 
 </div>
-@endsection
 
+
+@endsection
 @section('script')
 <script>
     $(document).ready(function() {
     $('.quantity-input').on('change', function() {
         var cartItemId = $(this).data('id'); // Ambil ID cart item dari atribut data-id
-        var productId = $(this).data('id-product'); 
+        var productId = $(this).data('id-product');
         var newQuantity = $(this).val(); // Ambil nilai quantity baru
 
         $.ajax({
@@ -85,11 +97,13 @@
                 window.location.reload();
             },
             error: function(xhr) {
-                console.log(xhr.responseText); // 
+                console.log(xhr.responseText); //
                 alert('Gagal mengupdate quantity!');
             }
         });
     });
 });
 </script>
+
 @endsection
+

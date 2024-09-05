@@ -16,7 +16,7 @@ class CheckoutController extends Controller
     {
         $user_id = Auth::id();
 
-        $checkouts = Checkout::where('user_id', $user_id)->with(['details'])->get();
+        $checkouts = Checkout::where('user_id', $user_id)->get();
         $cartItems = shopping_cart::where('user_id', $user_id)->with(['product','product.images'])->get();
         $data['checkouts'] = $checkouts;
         $data['cartItems'] = $cartItems;
@@ -40,17 +40,6 @@ class CheckoutController extends Controller
                     'user_id' => $user_id,
                     'grand_total' => $grandTotal,
                 ]);
-
-                foreach ($cartItems as $item) { 
-                    CheckoutDetail::create([
-                        'checkout_id' => $checkout->id,
-                        'product_id' => $item->product_id,
-                        'quantity' => $item->quantity,
-                        'price' =>  $item->sub_total / $item->quantity , // Asumsi: sub_total adalah total harga item, price per item adalah sub_total dibagi quantity
-                        'sub_total' => $item->sub_total,
-
-                    ]);
-                }
             });
         }
             return redirect()->route('checkout.show')->with('success', 'Checkout berhasil!');

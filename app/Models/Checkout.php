@@ -10,9 +10,4 @@ class Checkout extends Model
     protected $table = 'checkouts';
     use HasFactory;
     protected $fillable = ['user_id', 'grand_total'];
-
-    public function details()
-    {
-        return $this->hasMany(CheckoutDetail::class);
-    }
 }

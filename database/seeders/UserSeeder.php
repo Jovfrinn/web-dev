@@ -6,6 +6,8 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
+use Illuminate\Support\Facades\Hash;
+
 class UserSeeder extends Seeder
 {
     /**
@@ -13,6 +15,22 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
+
+        //
+
+        DB::table('users')->insert([
+            [
+                'name' => 'Kyy',
+                'email' => 'kyy@gmail.com',
+                'password' => Hash::make('password123'),
+                'email_verified_at' => now(),
+                'id_role'=> 1,
+                'remember_token'=>null,
+                'created_at'=>now(),
+            ],
+
+        ]);
+
         $array = [
             [
                 "name" => "admin",
@@ -31,5 +49,6 @@ class UserSeeder extends Seeder
             ];
 
             DB::table('users')->insert($array);
+
     }
 }

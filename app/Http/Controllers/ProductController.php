@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
@@ -14,22 +15,14 @@ class ProductController extends Controller
         return view('fronsite.home',$data);
     }
 
-    public function addStock($id, $amount){
-        $products = Product::findOrFail($id);
-        $products->increaseStock($amount);
-        
-        return redirect()->back()->with('Success', 'Stock berhasil di tambahkan');
-    }
+    public function search(Request $request){
 
-    public function reduceStock($id, $amount)
-    {
-        try {
-            $products = Product::findOrFail($id);
-            $products->decreaseStock($amount);
+        $query = $request->input('query');
 
-            return redirect()->back()->with('success', 'Stok berhasil dikurangi.');
-        } catch (\Exception $e) {
-            return redirect()->back()->with('error', $e->getMessage());
-        }
+        // Lakukan pencarian product berdasarkan nama
+        $products = Product::where('name_product', 'LIKE', "%{$query}%")->get();
+        $data['products'] = $products;
+        $data['query'] = $query;
+        return view('fronsite.search',$data);
     }
 }
