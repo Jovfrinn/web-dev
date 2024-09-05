@@ -27,15 +27,15 @@ Route::middleware('auth')->group(function(){
  
     Route::get('/backsite/stock',  [
         'uses' => 'App\Http\Controllers\backsite\StockController@index',
-        'as' => 'get.admin'
+        'as' => 'get.stock'
     ]);
-    Route::post('/product/{id}/add-stock', [
-        'uses' => 'App\Http\Controllers\backsite\StockController@addStock',
-        'as' => 'product.add.stock'
-    ] );
-    Route::post('/product/{id}/decrase-stock', [
-        'uses' => 'App\Http\Controllers\backsite\StockController@reduceStock',
-        'as' => 'product.reduce.stock'
+    Route::get('/backsite/stock/{id}',  [
+        'uses' => 'App\Http\Controllers\backsite\StockController@show',
+        'as' => 'show.stock'
+    ]);
+    Route::post('/product/edit/{id}', [
+        'uses' => 'App\Http\Controllers\backsite\StockController@editStock',
+        'as' => 'product.edit.stock'
     ] );
     
     
@@ -105,23 +105,14 @@ Route::put('/cart/{id}', [CartController::class, 'update'])->name('cart.update')
                 'uses' => 'App\Http\Controllers\CheckoutController@deleteCheckout',
                 'as' => 'delete.checkout'
                 ]);
-
 });
-
 Route::resource('/', ProductController::class);
 
 Route::get('/detail/{id}', [
     'uses' => 'App\Http\Controllers\DetailController@show',
     'as' => 'detail'
 ]);
-
-
-
 Route::get('/category/{id}', [
     'uses' => 'App\Http\Controllers\CategoryController@show',
     'as' => 'get.category'
 ] );
-
-//
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

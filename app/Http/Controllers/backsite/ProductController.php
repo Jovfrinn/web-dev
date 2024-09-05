@@ -95,19 +95,8 @@ class ProductController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        // $request->validate([
-        //     'name_product' => 'required|string|max:255',
-        //     'description_product' => 'required|string',
-        //     'price' => 'required|numeric',
-        //     'stock' => 'required|integer',
-        //     'category_id' => 'required|integer',
-        //     'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-        // ]);
-
         $product = Product::findOrFail($id);
-        // dd($request->hasFile('image'));
-
-        // Update data product
+      
         $product->update([
             'name_product' =>$request->name_product,
             'description_product'=>$request->description_product,
@@ -117,7 +106,6 @@ class ProductController extends Controller
         ]);
 
         if($request->hasFile('image')){
-            // dd($product->images);
             foreach($product->images as $image){
             if($image->id_product == $id){
                 $oldImagePath = public_path('assets/img'. $image->imageName);
@@ -128,7 +116,6 @@ class ProductController extends Controller
             }}
             $isFirstImage = true;
             foreach ($request->file('image') as $image){
-                // dd('kontol semua');
             $filename = $image->getClientOriginalName();
             $image->move(public_path('assets/img'), $filename);
             ImagesProduct::create([
@@ -142,9 +129,6 @@ class ProductController extends Controller
              return redirect()->route('get.product.backsite')->with('success', 'Produk Berhasil di Update');    
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
         $product = Product::findOrFail($id);

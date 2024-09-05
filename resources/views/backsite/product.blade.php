@@ -2,17 +2,17 @@
 @section('backContent')
 <div class="section-products container">
   <div class="title-products">Dashboard</div>
-  <div class="table-product mx-auto">
-    <table class="table-dashboard mx-auto" border="0" colspan="0" rowspan="1">
+  <div class="table-product">
+    <table class="table-dashboard " border="0" colspan="0" rowspan="1">
       <thead>
-        <th>ID</th>
-        <th>Gambar</th>
-        <th>Nama_Product</th>
-        <th class="desc-product">Deskripsi</th>
-        <th>Harga</th>
-        <th>Stok Barang</th>
-        <th>Kategori</th>
-        <th>Aksi</th>
+        <th class="field-id">ID</th>
+        <th class="field-gambar">Gambar</th>
+        <th class="field-name">Nama_Product</th>
+        <th class="field-desc">Deskripsi</th>
+        <th class="field-harga">Harga</th>
+        <th class="field-stock">Stok Barang</th>
+        <th class="field-kategori">Kategori</th>
+        <th class="field-aksi">Aksi</th>
       </thead>
       <tbody>
         @php $i = 1; @endphp

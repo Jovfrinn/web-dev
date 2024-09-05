@@ -16,74 +16,24 @@ class StockController extends Controller
         $products = Product::orderBy('created_at', 'DESC')->with('images')->get();
         $data['products'] = $products;
 
-        return view('backsite.home',$data);
+        return view('backsite.stock',$data);
     }
 
-    public function addStock($id, Request $request)
+    public function editStock($id, Request $request)
     {
         $products = Product::findOrFail($id);
-        $amount = $request->input('amount');
-        $products->increaseStock($amount);
+        $stockBaru = $request->input('quantityStock');
+        $products->stock = $stockBaru;
+        $products->save();
 
         return redirect()->back()->with('success', 'Stok berhasil ditambah.');
     }
 
-    public function reduceStock($id, Request $request)
-    {
-        try {
-            $products = Product::findOrFail($id);
-            $amount = $request->input('amount');
-            $products->decreaseStock($amount);
-
-            return redirect()->back()->with('success', 'Stok berhasil dikurangi.');
-        }   catch (\Exception $e) {
-            return redirect()->back()->with('error', $e->getMessage());
-        }
-    }
-
-   
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
-        //
-    }
+        $products = Product::with('images')->findOrFail($id);
+        $data['products'] = $products;
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        return view('backsite.editStock', $data);
     }
 }

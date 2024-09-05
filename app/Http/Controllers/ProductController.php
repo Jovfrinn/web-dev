@@ -2,16 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ImagesProduct;
 use App\Models\Product;
-use Database\Seeders\ImagesProductsSeeder;
-use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         $products = Product::orderBy('created_at', 'DESC')->with('images')->get();
@@ -19,10 +13,6 @@ class ProductController extends Controller
 
         return view('fronsite.home',$data);
     }
-
-    /**
-     * Show the form for creating a new resource.
-     */
 
     public function addStock($id, $amount){
         $products = Product::findOrFail($id);
@@ -41,52 +31,5 @@ class ProductController extends Controller
         } catch (\Exception $e) {
             return redirect()->back()->with('error', $e->getMessage());
         }
-    }
-
-
-
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
     }
 }
