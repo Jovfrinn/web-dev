@@ -4,8 +4,8 @@
     <h2>KATEGORI</h2>
     <div class="kategori-list">
       @foreach(getCategory() as $category)
-      <div class="kategori-item">
-        <div class="kategori-icon">
+      <div class="kategori-item ">
+        <div class="kategori-icon {{ Request::is('category/' . $category->id) ? 'active' : '' }}">
             @if($category->id == 1)
             <img src="{{ asset('assets/img/fast-food.png') }}" alt="Food Icon" class="icon">
             @elseif($category->id == 2)
