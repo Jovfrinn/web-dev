@@ -1,17 +1,11 @@
 @extends('fronsite.layouts.navbar')
 @section('content')
-{{-- <div class="sidebar">
-    @foreach(getCategory() as $category)
-    <a href="{{route('get.category',$category->id)}}" class="{{ Request::is('category/' . $category->id) ? 'active' : '' }}">{{$category->name_categories}}</a>
-    @endforeach
-  </div> --}}
-
-  <div class="kategori-container">
+<div class="kategori-container">
     <h2>KATEGORI</h2>
     <div class="kategori-list">
       @foreach(getCategory() as $category)
       <div class="kategori-item">
-        <div class="kategori-icon {{ Request::is('category/' . $category->id) ? 'active' : '' }}">
+        <div class="kategori-icon">
             @if($category->id == 1)
             <img src="{{ asset('assets/img/fast-food.png') }}" alt="Food Icon" class="icon">
             @elseif($category->id == 2)
@@ -35,25 +29,25 @@
     <div class="content-produkTerlaris">
         <div class="title-content">{{ $categories->name_categories }}</div>
         <div class="list slider-slick">
-            @foreach ($products as $data)
+            @foreach ($products as $product)
             <div class="card-list d-flex flex-column align-items-center">
-
-                @foreach($data->images as $image)
-
+                @foreach($product->images as $image)
                 {{-- @foreach ($product->images as $image) --}}
                 {{-- @dd($images) --}}
                 @if($image->is_thumb == 1)
                 {{-- <img src="{{asset('assets/img/'.$image->imageName)}}" alt=""> --}}
+                {{-- @foreach ($product->images as $image) --}}
+                {{-- @dd($images) --}}
                 <img src="{{asset('assets/img/'.$image->imageName)}}" alt="">
                 @endif
                 @endforeach
-                <div class="title-produk"><a href="{{route('detail', $data->id)}}">{{$data['name_product']}}</a></div>
-                <div class="price">Rp {{number_format($data->price,0,'.','.')}}</div>
+                <div class="title-produk">{{$product->name_product}}</div>
+                <div class="price">Rp {{number_format($product->price,0,'.','.')}}</div>
                 </a>
-                <form action="{{route('cart.add',$data->id)}}" method="POST">
+                <form action="{{route('cart.add',$product->id)}}" method="POST">
                     @csrf
-                    <input type="hidden" name="product_id" value="{{$data->id}}">
-                <button class="btn cart-btn add-to-cart" data-product-id="{{ $data->id }}"><span class="material-symbols-outlined">
+                    <input type="hidden" name="product_id" value="{{$product->id}}">
+                <button class="btn cart-btn add-to-cart" data-product-id="{{ $product->id }}"><span class="material-symbols-outlined">
                     add
                     </span>Keranjang</button>
                 </form>

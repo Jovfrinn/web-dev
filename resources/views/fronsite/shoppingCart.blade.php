@@ -16,12 +16,12 @@
         <tbody>
 
 
-            @foreach($cart as $data)
+            {{-- @foreach($cart as $data)
             <tr>
                 <td>{{$data['name_product']}}</td>
                 <td>{{$data['description_product']}}</td>
                 <td>1</td>
-                <td>{{number_format($data['price'],0,'.','.')}}</td>
+                <td>{{number_format($data['price'],0,'.','.')}}</td> --}}
 
 
             @foreach($cartItems as $data)
@@ -36,8 +36,11 @@
                 <td>{{$data->product->name_product}}</td>
                 <td id="price" class="price-cart">Rp {{number_format($data->product->price,0,'.','')}}</td>
 
+
                 <td>
+                        <div class="quantity d-flex justify-content-center" tabindex="0">
                         <input type="number" class="quantity-input" name="quantity" value="{{$data->quantity}}" min="1" id="quantity" data-id="{{$data->id}}" data-id-product="{{$data->product->id}}">
+                        </div>
                 </td>
                 <td>Rp {{$data->sub_total}}</td>
                 <td>
@@ -50,21 +53,8 @@
                         </button>
                     </form>
             </td>
-
-            <td>
-                <form action="{{ route('checkout.process')}}" method="POST">
-                    @csrf
-                    <button type="submit" class="btn btn-primary btn-block mt-3">Proses Checkout</button>
-                </form>
-            </td>
             </tr>
             @endforeach
-
-             <!-- Add more products as needed -->
-
-
-
-            <!-- Add more products as needed -->
 
         </tbody>
     </table>
@@ -77,18 +67,14 @@
             <input type="hidden" name="grand_total" value="{{$grand_total}}">
 
         </div>
-        <button type="submit">Continue Shopping</button>
+        {{-- @endforeach --}}
+        <a href="home" >Continue Shopping</a>
     </form>
 
 </div>
 
 
-
-
-
 @endsection
-@endsection
-
 @section('script')
 <script>
     $(document).ready(function() {
@@ -119,4 +105,6 @@
     });
 });
 </script>
+
 @endsection
+

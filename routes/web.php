@@ -131,22 +131,6 @@ Route::get('/search-product', [
 ] );
 
 
-Route::post('/checkout', [
-    'uses' => 'App\Http\Controllers\CheckoutController@checkout',
-    'as' => 'checkout.process'
-]);
-Route::post('/checkout/succes', [
-    'uses' => 'App\Http\Controllers\CheckoutController@checkout',
-    'as' => 'checkout.succes'
-]);
-Route::post('/midtrans/callback', [
-    'uses' => 'App\Http\Controllers\CheckoutController@handleCallback',
-    'as' => 'midtrans.callback'
-]);
-
-
-
-
 
 
 
