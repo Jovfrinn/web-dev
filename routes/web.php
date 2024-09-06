@@ -26,8 +26,7 @@ Route::get('/admin', function () {
 
 Auth::routes();
 
-Route::middleware('auth')->group(function(){
-
+Route::group(['middleware' => ['checkRole']], function () {
     Route::get('/backsite/stock',  [
         'uses' => 'App\Http\Controllers\backsite\StockController@index',
         'as' => 'get.stock'
@@ -36,7 +35,7 @@ Route::middleware('auth')->group(function(){
         'uses' => 'App\Http\Controllers\backsite\StockController@show',
         'as' => 'show.stock'
     ]);
-    Route::post('/product/edit/{id}', [
+    Route::post('/backsite/product/edit/stock/{id}', [
         'uses' => 'App\Http\Controllers\backsite\StockController@editStock',
         'as' => 'product.edit.stock'
     ] );
@@ -62,13 +61,19 @@ Route::middleware('auth')->group(function(){
 
     Route::put('/backsite/product/update/{id}', [
         'uses' => 'App\Http\Controllers\backsite\ProductController@update',
-        'as' => 'put.product.backsite'
+        'as' => 'put.product.backsite' 
     ] );
     Route::delete('/backsite/product/delete/{id}', [
         'uses' => 'App\Http\Controllers\backsite\ProductController@destroy',
         'as' => 'delete.product.backsite'
     ] );
 
+});
+
+
+Route::middleware('auth')->group(function(){
+
+ 
         // Shopping Cart
     Route::get('/shopping_cart',  [
             'uses' => 'App\Http\Controllers\CartController@index',

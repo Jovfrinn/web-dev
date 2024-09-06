@@ -19,7 +19,6 @@ class CartController extends Controller
         $grand_total = $cartItems->sum('sub_total');
         $data['cartItems'] = $cartItems;
         $data['grand_total'] = $grand_total;
-        $cart_count = session()->get('cart', []);
         session()->put('cart', count($cartItems));
         return view('fronsite.shoppingCart', $data);
 
@@ -53,6 +52,10 @@ class CartController extends Controller
                 'sub_total' => $product->price * 1,
             ]);
         }
+
+        $cartItems = shopping_cart::where('user_id', Auth::id())->with(['product','product.images'])->orderBy('created_at', 'desc')->get();
+        $cart_count = session()->get('cart', []);
+        session()->put('cart', count($cartItems));
 
         return redirect()->back()->with('success', 'Product added to cart!');
 
@@ -112,6 +115,10 @@ class CartController extends Controller
         shopping_cart::where('user_id', $userId)
             ->where('product_id', $productId)
             ->delete();
+
+
+        $cartItems = shopping_cart::where('user_id', Auth::id())->with(['product','product.images'])->orderBy('created_at', 'desc')->get();
+            session()->put('cart', count($cartItems));
 
         return redirect()->back()->with('success', 'Delete Product success');
 

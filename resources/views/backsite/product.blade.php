@@ -2,8 +2,8 @@
 @section('backContent')
 <div class="section-products container">
   <div class="title-products">Dashboard</div>
-  <div class="table-product">
-    <table class="table-dashboard " border="0" colspan="0" rowspan="1">
+  <div class="table-product"> 
+    <table class="table-dashboard" border="0" colspan="0" rowspan="1">
       <thead>
         <th class="field-id">ID</th>
         <th class="field-gambar">Gambar</th>

@@ -8,7 +8,7 @@
             <div class="title-content-search"></div>
             {{-- <div class="list slider-slick"> --}}
                 @foreach ($products as $data)
-                <div class="card-list-search d-flex flex-column align-items-center">
+                <div class="card-list-search d-flex flex-column mx-3 align-items-center">
                     @foreach($data->images as $image)
                     <img src="{{asset('assets/img/'.$image->imageName)}}" alt="">
                     @endforeach

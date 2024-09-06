@@ -1,12 +1,13 @@
+/* *{
+    border: 1px solid red;
+} */
+
 a{
     text-decoration: none;
 }
-
-
 body{
     background-color:#F9FBE7;
-}
-
+} 
 .container-iklan {
     width: 40%;
     height: 280px;
@@ -43,6 +44,7 @@ body{
 
 }
 
+
 .card-list:hover {
     box-shadow: 0px 0px 10px -2px rgba(0, 0, 0, 0.75);
     -webkit-box-shadow: 0px 0px 10px -2px rgba(0, 0, 0, 0.75);
@@ -70,7 +72,36 @@ body{
 .price {
     color: green;
 }
+.cart-container{
+    overflow-x: hidden;
+}
+.title-cart{
+    font-family: "Blinker", sans-serif;
+    font-weight: 600;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+}
+.table-cart{
+    margin-top: 2rem;
+    margin-bottom: 3rem;
+}
+@media screen and (max-width: 768px) {
+    .table-cart{
+        scale: 0.8;
+        transform: translateX(-70px)
+    }
+    .table-cart .quantity-input{
+        width:5rem;
+    }
 
+}
+.table-cart thead th{
+    background-color: #535353;
+    width: 2.5rem;
+}
+.table-cart tbody td{
+    background-color: #D7F0D3;
+}
 .card-list .cart-btn {
     display: flex;
     justify-content: center;
@@ -80,15 +111,32 @@ body{
     color: rgb(0, 255, 21);
     /* width: 250px; */
 }
+.button-delete-cart{
+    background-color: red !important;
+    color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
 .img-cart {
-    width: 10rem;
-    height: 10rem;
+    width: 5rem;
+    height: 5rem;
     object-fit: cover;
 }
 
 .desc-cart {
     width: 20rem;
+}
+.button-cart button, .button-cart a{
+    /* margin-top: 2rem; */
+    background-color: #F9FBE7;
+    border: 1px solid #CB3DA7;
+    color: #CB3DA7;
+    font-weight: 400;
+}
+.quantity-input{
+    width: auto;
 }
 
 .slick-next:before,
@@ -115,15 +163,24 @@ body{
 }
 
 /* Detail */
+.detail-productss{
+    overflow-x: hidden;
+}
 .detail-product-img .col-md-4 .img-detail {
-    width: 400px;
-    height: 400px;
+    width: 380px;
+    height: 380px;
     margin-top: 3rem;
 }
 
+.section-image {
+    display: flex;
+    align-items: center;
+    /* justify-content: center; */
+}
 .section-img {
     margin-top: 1rem;
     margin-bottom: 1rem;
+    margin-right: 10px;
 }
 
 .section-img .img-support {
@@ -150,7 +207,8 @@ body{
 .ready-stock,
 .price-product,
 .quantity,
-.btn-productCart {
+.btn-productCart,
+.detail-product .add-to-cart {
     margin-left: 4rem;
 }
 
@@ -190,8 +248,18 @@ body{
     flex-direction: column;
     border-radius: 5px;
     margin-top: 2rem;
+    margin-bottom: 2rem;
     font-family: "Blinker", sans-serif;
 
+}
+.slick-next:before, .slick-prev:before{
+    position: absolute;
+}
+.slick-next:before{
+    right: 25px;
+}
+.slick-prev:before{
+    right: 0px;
 }
 
 .description-title,
@@ -676,7 +744,7 @@ tbody tr:hover {
 
 .table-dashboard {
     scale: 0.8;
-    margin-top: -3rem;
+    margin-top: -7rem;
     margin-left: 4rem;
     box-shadow: 0px 0px 15px -7px rgba(0, 0, 0, 1);
     -webkit-box-shadow: 0px 0px 15px -7px rgba(0, 0, 0, 1);
@@ -736,7 +804,7 @@ td {
 
 .btn-delete {
     background-color: rgb(240, 2, 2);
-    /* width: 6rem; */
+    width: 4rem;
     color: white;
     display: flex;
     align-items: center;
@@ -744,6 +812,12 @@ td {
     box-shadow: 0px 0px 15px -7px rgba(0, 0, 0, 1);
     -webkit-box-shadow: 0px 0px 15px -7px rgba(0, 0, 0, 1);
     -moz-box-shadow: 0px 0px 15px -7px rgba(0, 0, 0, 1);
+}
+.button-editDelete{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
 /* Form */
@@ -824,59 +898,6 @@ textarea {
 
 
 
-.checkout-container {
-    width: 80%;
-    max-width: 800px;
-    margin: 20px auto;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.header-checkout {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.text-checkout {
-    margin: 0;
-    color: #333;
-}
-
-.main-checkout {
-    display: flex;
-    justify-content: center;
-}
-
-.cart-summary {
-    width: 100%;
-}
-
-.cart-summary table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 20px;
-}
-
-.cart-summary th,
-.cart-summary td {
-    padding: 10px;
-    border: 1px solid #ddd;
-    text-align: left;
-}
-
-.cart-summary th {
-    background-color: #f4f4f4;
-}
-
-.cart-total {
-    text-align: right;
-    font-weight: bold;
-    padding: 10px;
-    background-color: #f4f4f4;
-    border-top: 1px solid #ddd;
-}
 
 .sidebar-backsite {
     position: fixed;
@@ -951,7 +972,7 @@ textarea {
     color: black;
 }
 
-hr {
+.sidebar-backsite hr  {
     margin-top: 3rem;
     margin-bottom: 0;
     color: rgb(0, 0, 0) !important;
@@ -982,9 +1003,6 @@ hr {
     border-radius: 50px !important;
 }
 
-.table-product {
-    margin-top: 3rem;
-}
 
 .desc-product,
 .desc-product1 {
@@ -1073,4 +1091,80 @@ hr {
     transform: scale(1.5);
     margin-top: 2rem;
     margin-left: 2rem;
+}
+.table-checkout{
+    border: 1px solid black;
+}
+.table-checkout thead{
+    background-color: #D9D9D9;
+    color: black;
+}
+.table-checkout thead th{
+    border: 1px solid black;
+
+}
+.table-checkout tbody td{
+    background-color: #D9D9D9;
+    border: 1px solid black;
+}
+.col-list-products{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.section-list-products{
+    background-color: #D7F0D3;
+    margin-bottom: 3rem;
+    border-radius: 20px;
+    margin-top: 5rem;
+    width: 30rem;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* margin-top: 10rem; */
+}
+.table-checkout{
+    scale: 0.9;
+}
+.col-price-checkout{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.section-price-checkout{
+    background-color: #D7F0D3;
+    border-radius: 20px;
+    width: 20rem;
+    height: 15rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+}
+.horizontal{
+    margin-bottom: 10px;
+    color: rgb(0, 0, 0) !important;
+    /* border: 3px solid black; */
+    width: 100% !important;
+    height: 4px !important;
+}
+.button-pay{
+    margin-top: 2rem;
+    background-color: #F9FBE7;
+    border: 1px solid #CB3DA7;
+    color: #CB3DA7;
+    font-weight: 400;
+    width: 7rem !important;
+}
+.btn-backCart{
+    margin-top: 2rem;
+    background-color: #F9FBE7;
+    border: 1px solid #CB3DA7;
+    color: #CB3DA7;
+    font-weight: 400;
+}
+.total-price span, .grand-total span{
+    margin-left: 3rem;
 }

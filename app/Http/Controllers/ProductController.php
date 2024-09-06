@@ -10,7 +10,11 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::orderBy('created_at', 'DESC')->with('images')->get();
+        $productTerjangkau = Product::orderBy('price', 'asc')->with('images')->take(16)->get();
+        $productTerlaris = Product::orderBy('sold_count', 'desc')->with('images')->take(16)->get();
         $data['products'] = $products;
+        $data['productTerjangkau'] = $productTerjangkau;
+        $data['productTerlaris'] = $productTerlaris;
 
         return view('fronsite.home',$data);
     }

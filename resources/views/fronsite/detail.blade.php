@@ -1,32 +1,40 @@
 @extends('fronsite.layouts.navbar')
 @section('content')
-<div class="detail" style="background-color: rgb(215, 215, 215)">
+<div class="detail-productss" style="background-color: rgb(215, 215, 215)">
 <div class="container">
     <div class="row mx-auto detail-product-img">
-        <div class="col-md-4">
+        <div class="col-md-4 d-flex flex-column justify-content-center">
+            <div class="slider-detail">
             @foreach($detail_product->images as $image)
             <img  src="{{asset('assets/img/'.$image->imageName)}}" class="img-detail">
             @endforeach
+            </div>
+            <div class="section-image">
             @foreach($detail_product->images as $image)
             <div class="section-img">
                 <img src="{{asset('assets/img/'.$image->imageName)}}" class="img-support">
             </div>
             @endforeach
+            </div>
         </div>
-        <div class="col-md-8">
+        <div class="col-md-8 mx-auto">
             <div class="detail-product">
                 <div class="title-product">{{$detail_product->name_product}}</div>
                 <div class="ready-stock">Stock {{$detail_product->stock}}</div>
                 <div class="price-product">{{number_format($detail_product->price,0,'.','.')}}</div>
-                <div class="quantity">
-                    <form>
-                        <label for="quantity">Quantity : </label>
-                        <input type="number" id="quantity" name="quantity" min="1" max="10">
-                    </form>
-                </div>
-                <div class="btn-productCart"><a href="#"><span class="material-symbols-outlined">
+                <form action="{{route('cart.add',$detail_product->id)}}" method="POST">
+                    @csrf
+                    <input type="hidden" name="product_id" value="{{$detail_product->id}}">
+                    @if($detail_product->stock == 0)
+                <button class="btn cart-btn add-to-cart" disabled data-product-id="{{ $detail_product->id }}"><span class="material-symbols-outlined">
                     add
-                    </span>Keranjang</a></div>
+                    </span>Keranjang</button>
+                    @else
+                    <button class="btn cart-btn add-to-cart" data-product-id="{{ $detail_product    ->id }}"><span class="material-symbols-outlined">
+                        add
+                        </span>Keranjang</button>
+                    @endif
+                </form>
             </div>
 
             <div class="detail-description">
@@ -37,4 +45,10 @@
     </div>
 </div>
 </div>
+@endsection
+
+@section('script')
+<script>
+    $('.slider-detail').slick();
+</script>
 @endsection

@@ -65,13 +65,19 @@ class CheckoutController extends Controller
             // dd($product);
             if ($product) {
                 $product->stock = $product->stock - $item->quantity;
+                $product->sold_count = $item->quantity;
                 $product->save();
             }
         }
 
+
         shopping_cart::where('user_id', $user_id)->delete();
         CheckoutDetail::where('checkout_id', $checkouts->id)->delete();
         $checkouts->delete();
+
+        $cartItems = shopping_cart::where('user_id', Auth::id())->with(['product','product.images'])->orderBy('created_at', 'desc')->get();
+        session()->put('cart', count($cartItems));
+
 
         return redirect()->route('index')->with('success', 'Transaksi Berhasil');
 

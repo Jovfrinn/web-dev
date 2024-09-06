@@ -29,7 +29,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
                 <!-- Pindahkan form search ke dalam div baru dengan class mx-auto -->
-                <div class="mx-auto">
+                <div class="mx-auto mt-1">
                     <form action="{{ route('search.product') }}" method="GET" class="d-flex  search-bar-center custom-search">
                         <input type="text" name="query" class="form-control " placeholder="Cari produk..." aria-label="Search" value="{{ request('query') }}">
                            <button class="btn-custom btn-outline-success" type="submit"><span class="material-symbols-outlined">
@@ -37,22 +37,22 @@
                             </span></button>
                     </form>
                 </div>
-                <ul class="navbar-nav me-auto mb-2 ms-3 mb-lg-0">
-                    {{-- <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/">Home</a>
-                    </li> --}}
-                     {{-- <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Categories
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            @foreach(getCategory() as $category)
-                            <li><a class="dropdown-item" href="{{route('get.category',$category->id)}}" style="color: black">{{$category->name_categories}}</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            @endforeach
-                        </ul>
-                    </li> --}}
-                    <li class="nav-item">
+                <ul class="navbar-nav me-auto mb-2 ms-3 mb-lg-0 d-flex align-items-start">
+                  <li class="nav-item ms-4 mt-2 mb-1">
+                    <a href="{{route('cart.show')}}"><i class="material-symbols-outlined" style="color:rgb(6, 6, 6);">
+                        shopping_cart
+                        </i>
+                        {{-- @dd(session('cart')) --}}
+                        @if(session('cart'))
+                        <span class="start-100 translate-middle badge rounded-pill bg-danger">
+                            {{ session('cart')}}
+                            <span class="visually-hidden"></span>
+                          </span>
+                          @endif
+                    </a>
+
+                </li>
+                    <li class="nav-item mt-1 mb-1">
                     @if(Auth::check())
                     <a class="btn-login" href="{{route('logout')}}">Logout</a>
                     @else
@@ -60,17 +60,7 @@
                     @endif
                 </li>
 
-                    <li class="nav-item">
-                        <a href="{{route('cart.show')}}"><i class="material-symbols-outlined" style="color:rgb(6, 6, 6); margin-top:9px; margin-left:3px;  ">
-                            shopping_cart
-                            </i>
-                            <span class="position-static top-0 start-100 translate-middle badge rounded-pill bg-danger ms-2">
-                                {{ session('cart')}}
-                                <span class="visually-hidden"></span>
-                              </span>
-                        </a>
-
-                    </li>
+                 
 
                 </ul>
             </div>

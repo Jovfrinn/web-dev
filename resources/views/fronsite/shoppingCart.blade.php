@@ -1,16 +1,16 @@
 @extends('fronsite.layouts.navbar')
 @section('content')
-<div class="container">
-    <h1>Your Shopping Cart</h1>
-    <table>
+<div class="cart-container container">
+    <h1 class="title-cart">Your Shopping Cart</h1>
+    <table class="table-cart mx-auto">
         <thead>
             <tr>
                 <th>Gambar</th>
-                <th>Product Name</th>
-                <th>Price</th>
-                <th>Quantity</th>
-                <th>Total</th>
-                <th>delete</th>
+                <th>Nama Produk</th>
+                <th>Harga</th>
+                <th>Jumlah</th>
+                <th>Total Harga</th>
+                <th>Hapus</th>
             </tr>
         </thead>
         <tbody>
@@ -34,7 +34,7 @@
                 @endforeach
 
                 <td>{{$data->product->name_product}}</td>
-                <td id="price" class="price-cart">Rp {{number_format($data->product->price,0,'.','')}}</td>
+                <td class="price-cart">Rp {{number_format($data->product->price,0,'.','')}}</td>
 
 
                 <td>
@@ -48,8 +48,8 @@
                         @csrf
                         @method('DELETE')
                         <input type="hidden" name="productId" value="{{ $data->product->id }}">
-                        <button type="submit" data-product-id="{{ $data->product->id }}">
-                            <span class="material-symbols-outlined">delete</span>
+                        <button type="submit" class="btn button-delete-cart" data-product-id="{{ $data->product->id }}">
+                            <span class="material-symbols-outlined ms-1">delete</span>
                         </button>
                     </form>
             </td>
@@ -60,14 +60,17 @@
     </table>
     <form action="{{route('post.checkout')}}" method="POST">
     <div class="total">
-        <p><strong>Grand Total: <span id="total">Rp {{$grand_total}}</span> </strong></p>
+        <p><strong>Total Semua Produk: <span id="total">Rp {{$grand_total}}</span> </strong></p>
             @csrf
             <input type="hidden" name="user" value="{{Auth::user()->id}}">
             <input type="hidden" name="grand_total" value="{{$grand_total}}">
 
         </div>
         {{-- @endforeach --}}
-        <button type="submit">Continue Shopping</button>
+        <div class="button-cart d-flex justify-content-between">
+        <a class="btn" href="/">Kembali Berbelanja</a>
+        <button type="submit" class="btn">Lanjut Pembayaran</button>
+        </div>
     </form>
 
 </div>

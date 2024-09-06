@@ -29,6 +29,8 @@
     <div class="content-produkTerlaris">
         <div class="title-content">{{ $categories->name_categories }}</div>
         <div class="list slider-slick">
+            
+            @if(!$products == [])
             @foreach ($products as $product)
             <div class="card-list d-flex flex-column align-items-center">
                 @foreach($product->images as $image)
@@ -41,7 +43,7 @@
                 <img src="{{asset('assets/img/'.$image->imageName)}}" alt="">
                 @endif
                 @endforeach
-                <div class="title-produk">{{$product->name_product}}</div>
+                <div class="title-produk">{{Str::limit($product->name_product,15)}}</div>
                 <div class="price">Rp {{number_format($product->price,0,'.','.')}}</div>
                 </a>
                 <form action="{{route('cart.add',$product->id)}}" method="POST">
@@ -53,61 +55,9 @@
                 </form>
             </div>
             @endforeach
-            {{-- @endforeach --}}
-            <div class="card-list d-flex flex-column align-items-center">
-                <img src="https://www.sunlight.co.id/images/h0nadbhvm6m4/1VLa8YgpNnTTHS8hVcRpFx/f877e731e3474ef8f0b991083e3d69a1/U3VubGlnaHRfSmVydWtfTmlwaXMxLnBuZw/1080w-1080h/sunlight-jeruk-nipis.jpg" alt="">
-                <div class="title-produk">sunlight</div>
-                <div class="price">Rp 21.500</div>
-                </a>
-                <button class="btn cart-btn"><span class="material-symbols-outlined">
-                    add
-                    </span>Keranjang</button>
-            </div>
-            <div class="card-list d-flex flex-column align-items-center">
-                <img src="https://www.sunlight.co.id/images/h0nadbhvm6m4/1VLa8YgpNnTTHS8hVcRpFx/f877e731e3474ef8f0b991083e3d69a1/U3VubGlnaHRfSmVydWtfTmlwaXMxLnBuZw/1080w-1080h/sunlight-jeruk-nipis.jpg" alt="">
-                <div class="title-produk">sunlight</div>
-                <div class="price">Rp 21.500</div>
-                </a>
-                <button class="btn cart-btn"><span class="material-symbols-outlined">
-                    add
-                    </span>Keranjang</button>
-            </div>
-            <div class="card-list d-flex flex-column align-items-center">
-                <img src="https://www.sunlight.co.id/images/h0nadbhvm6m4/1VLa8YgpNnTTHS8hVcRpFx/f877e731e3474ef8f0b991083e3d69a1/U3VubGlnaHRfSmVydWtfTmlwaXMxLnBuZw/1080w-1080h/sunlight-jeruk-nipis.jpg" alt="">
-                <div class="title-produk">sunlight</div>
-                <div class="price">Rp 21.500</div>
-                </a>
-                <button class="btn cart-btn"><span class="material-symbols-outlined">
-                    add
-                    </span>Keranjang</button>
-            </div>
-            <div class="card-list d-flex flex-column align-items-center">
-                <img src="https://www.sunlight.co.id/images/h0nadbhvm6m4/1VLa8YgpNnTTHS8hVcRpFx/f877e731e3474ef8f0b991083e3d69a1/U3VubGlnaHRfSmVydWtfTmlwaXMxLnBuZw/1080w-1080h/sunlight-jeruk-nipis.jpg" alt="">
-                <div class="title-produk">sunlight</div>
-                <div class="price">Rp 21.500</div>
-                </a>
-                <button class="btn cart-btn"><span class="material-symbols-outlined">
-                    add
-                    </span>Keranjang</button>
-            </div>
-            <div class="card-list d-flex flex-column align-items-center">
-                <img src="https://www.sunlight.co.id/images/h0nadbhvm6m4/1VLa8YgpNnTTHS8hVcRpFx/f877e731e3474ef8f0b991083e3d69a1/U3VubGlnaHRfSmVydWtfTmlwaXMxLnBuZw/1080w-1080h/sunlight-jeruk-nipis.jpg" alt="">
-                <div class="title-produk">sunlight</div>
-                <div class="price">Rp 21.500</div>
-                </a>
-                <button class="btn cart-btn"><span class="material-symbols-outlined">
-                    add
-                    </span>Keranjang</button>
-            </div>
-            <div class="card-list d-flex flex-column align-items-center">
-                <img src="https://www.sunlight.co.id/images/h0nadbhvm6m4/1VLa8YgpNnTTHS8hVcRpFx/f877e731e3474ef8f0b991083e3d69a1/U3VubGlnaHRfSmVydWtfTmlwaXMxLnBuZw/1080w-1080h/sunlight-jeruk-nipis.jpg" alt="">
-                <div class="title-produk">sunlight</div>
-                <div class="price">Rp 21.500</div>
-                </a>
-                <button class="btn cart-btn"><span class="material-symbols-outlined">
-                    add
-                    </span>Keranjang</button>
-            </div>
+            @else
+            <h1>Produk Kosong</h1>
+            @endif
             </div>
         </div>
     </div>
