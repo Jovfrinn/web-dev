@@ -73,7 +73,8 @@ body{
     color: green;
 }
 .cart-container{
-    overflow-x: hidden;
+    /* overflow-x: hidden; */
+    padding-bottom: 3rem;
 }
 .title-cart{
     font-family: "Blinker", sans-serif;
@@ -87,8 +88,8 @@ body{
 }
 @media screen and (max-width: 768px) {
     .table-cart{
-        scale: 0.8;
-        transform: translateX(-70px)
+        scale: 0.6;
+        /* transform: translateX(-140px); */
     }
     .table-cart .quantity-input{
         width:5rem;
@@ -617,11 +618,11 @@ tbody tr:hover {
       .content-search {
           display: flex;
           flex-wrap: wrap;
-          justify-content:first baseline;
+          justify-content:center;
       }
 
       .card-list-search {
-          width: calc(15% - 20px);
+          width: 8rem;
           margin-bottom: 20px;
           text-align: center;
           border: 1px solid #ddd;

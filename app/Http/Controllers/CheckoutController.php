@@ -62,8 +62,7 @@ class CheckoutController extends Controller
         $shopping_cart = shopping_cart::where('user_id', $user_id)->get();
         foreach( $shopping_cart as $item){
             $product = Product::findOrFail($item->product_id);
-            // dd($product);
-            if ($product) {
+            if($product){
                 $product->stock = $product->stock - $item->quantity;
                 $product->sold_count = $item->quantity;
                 $product->save();

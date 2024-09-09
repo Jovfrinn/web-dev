@@ -10,9 +10,11 @@
                 @foreach ($products as $data)
                 <div class="card-list-search d-flex flex-column mx-3 align-items-center">
                     @foreach($data->images as $image)
+                    @if($image->is_thumb == 1)
                     <img src="{{asset('assets/img/'.$image->imageName)}}" alt="">
+                    @endif
                     @endforeach
-                    <div class="title-produk-search"><a href="{{route('detail', $data->id)}}">{{$data['name_product']}}</a></div>
+                    <div class="title-produk-search"><a href="{{route('detail', $data->id)}}">{{Str::limit($data['name_product'],8)}}</a></div>
                     <div class="price-search">Rp {{number_format($data->price,0,'.','.')}}</div>
                     </a>
                     <form action="{{route('cart.add',$data->id)}}" method="POST">

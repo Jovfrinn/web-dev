@@ -3,6 +3,12 @@
 <div class="section-products container">
   <div class="title-products">Dashboard</div>
   <div class="table-product"> 
+    @if (session('success'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ session('success') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
     <table class="table-dashboard" border="0" colspan="0" rowspan="1">
       <thead>
         <th class="field-id">ID</th>
@@ -49,4 +55,6 @@
     </table>
   </div>
 </div>
+
+
 @endsection

@@ -44,7 +44,7 @@ class PaymentController extends Controller
             ],
             'item_details' => $itemDetails,
             'customer_details' => [
-                'name' => $user->name,
+                'first_name' => $user->name,
                 'email' => $user->email,
             ],
         ];
@@ -56,6 +56,7 @@ class PaymentController extends Controller
           
             return response()->json([
                 'token' => $snapToken,
+                'name' => $user
             ]);
     }
 }

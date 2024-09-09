@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
@@ -15,6 +16,8 @@ class ProductController extends Controller
         $data['products'] = $products;
         $data['productTerjangkau'] = $productTerjangkau;
         $data['productTerlaris'] = $productTerlaris;
+        // $user = Auth::user()->name;
+        // dd($user);
 
         return view('fronsite.home',$data);
     }
