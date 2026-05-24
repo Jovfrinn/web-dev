@@ -45,6 +45,20 @@ class Product extends Model
     {
         return $this->hasMany(CheckoutDetail::class, 'product_id');
     }
-  
+
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
+    }
+
+    public function wishlists()
+    {
+        return $this->hasMany(Wishlist::class);
+    }
+
+    public function averageRating()
+    {
+        return $this->reviews()->avg('rating') ?? 0;
+    }
 }
 

@@ -1,75 +1,70 @@
 @extends('fronsite.layouts.navbar')
+@section('title', $categories->name_categories . ' — TrendStore')
 @section('content')
-<div class="kategori-container">
-    <h2>KATEGORI</h2>
-    <div class="kategori-list">
-      @foreach(getCategory() as $category)
-      <div class="kategori-item">
-        <div class="kategori-icon">
-            @if($category->id == 1)
-            <img src="{{ asset('assets/img/fast-food.png') }}" alt="Food Icon" class="icon">
-            @elseif($category->id == 2)
-            <img src="{{ asset('assets/img/soft-drink.png') }}" alt="Drink Icon" class="icon">
-            @elseif($category->id == 3)
-            <img src="{{ asset('assets/img/graduation-hat.png') }}" alt="Perlengkapan sekolah" class="icon">
-            @elseif($category->id == 4)
-            <img src="{{ asset('assets/img/uniform.png') }}" alt="Fashion" class="icon">
-            @else
-            <img src="{{ asset('assets/img/') }}" alt="Default Icon">
+
+<div class="ts-section">
+  <div class="container">
+    <div class="ts-page-header text-center mb-5">
+      <h1 class="ts-page-title">
+        <span class="material-symbols-outlined ts-title-icon">category</span>
+        Kategori: {{ $categories->name_categories }}
+      </h1>
+      <p class="text-muted mt-2">Jelajahi produk terbaik dalam kategori {{ $categories->name_categories }}.</p>
+    </div>
+
+    @if($products->count() > 0)
+    <div class="row g-4">
+      @foreach ($products as $product)
+      <div class="col-6 col-md-4 col-lg-3">
+        <a href="{{ route('detail', $product->id) }}" class="ts-product-card">
+          <div class="ts-product-img-wrap">
+            @php $hasImage = false; @endphp
+            @foreach($product->images as $image)
+              @if($image->is_thumb == 1)
+                <img src="{{ asset('assets/img/'.$image->imageName) }}" alt="{{ $product->name_product }}" class="ts-product-img">
+                @php $hasImage = true; @endphp
+                @break
+              @endif
+            @endforeach
+            
+            @if(!$hasImage)
+              <div class="ts-product-img d-flex align-items-center justify-content-center bg-light text-muted">
+                <span class="material-symbols-outlined" style="font-size: 3rem;">image</span>
+              </div>
             @endif
-        </div>
-        <a href="{{route('get.category',$category->id)}}" style="color:black;" class="{{ Request::is('category/' . $category->id) ? 'active' : '' }}">{{$category->name_categories}}</a>
+
+            @if($product->stock <= 5 && $product->stock > 0)
+              <span class="ts-badge ts-badge-warning position-absolute top-0 end-0 m-2">Sisa {{ $product->stock }}</span>
+            @elseif($product->stock == 0)
+              <span class="ts-badge ts-badge-danger position-absolute top-0 end-0 m-2">Habis</span>
+            @endif
+          </div>
+          
+          <div class="ts-product-body">
+            <h3 class="ts-product-name">{{ Str::limit($product->name_product, 40) }}</h3>
+            <div class="ts-product-price">Rp {{ number_format($product->price, 0, '.', '.') }}</div>
+            <div class="ts-product-rating mt-1">
+              <div class="ts-stars">
+                <span class="material-symbols-outlined" style="font-size: 14px;">star</span>
+              </div>
+              <span class="ms-1">{{ number_format($product->averageRating(), 1) }}</span>
+              <span class="mx-1 text-muted">•</span>
+              <span class="text-muted">{{ $product->category->name_categories ?? 'Kategori' }}</span>
+            </div>
+          </div>
+        </a>
       </div>
       @endforeach
     </div>
-  </div>
-
-
-<div class="container-produkTerlaris">
-    <div class="content-produkTerlaris">
-        <div class="title-content">{{ $categories->name_categories }}</div>
-        <div class="list slider-slick">
-            
-            @if(!$products == [])
-            @foreach ($products as $product)
-            <div class="card-list d-flex flex-column align-items-center">
-                @foreach($product->images as $image)
-                {{-- @foreach ($product->images as $image) --}}
-                {{-- @dd($images) --}}
-                @if($image->is_thumb == 1)
-                {{-- <img src="{{asset('assets/img/'.$image->imageName)}}" alt=""> --}}
-                {{-- @foreach ($product->images as $image) --}}
-                {{-- @dd($images) --}}
-                <img src="{{asset('assets/img/'.$image->imageName)}}" alt="">
-                @endif
-                @endforeach
-                <div class="title-produk">{{Str::limit($product->name_product,15)}}</div>
-                <div class="price">Rp {{number_format($product->price,0,'.','.')}}</div>
-                </a>
-                <form action="{{route('cart.add',$product->id)}}" method="POST">
-                    @csrf
-                    <input type="hidden" name="product_id" value="{{$product->id}}">
-                <button class="btn cart-btn add-to-cart" data-product-id="{{ $product->id }}"><span class="material-symbols-outlined">
-                    add
-                    </span>Keranjang</button>
-                </form>
-            </div>
-            @endforeach
-            @else
-            <h1>Produk Kosong</h1>
-            @endif
-            </div>
-        </div>
+    @else
+    <div class="ts-empty-state text-center py-5">
+      <span class="material-symbols-outlined" style="font-size: 4rem; color: #D1D5DB; margin-bottom: 1rem;">inventory_2</span>
+      <h3>Produk Kosong</h3>
+      <p class="text-muted">Belum ada produk di kategori ini.</p>
+      <a href="{{ url('/') }}" class="ts-btn ts-btn-primary mt-3">Kembali ke Beranda</a>
     </div>
-    <script>
-        // function w3_open() {
-        //   document.getElementById("mySidebar").style.display = "block";
-        // }
+    @endif
+  </div>
+</div>
 
-        // function w3_close() {
-        //   document.getElementById("mySidebar").style.display = "none";
-        // }
-        // </script>
 @endsection
-
-

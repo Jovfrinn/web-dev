@@ -90,16 +90,11 @@ class CartController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $product = Product::findOrFail($request->productId);
-
-        $cartItem = shopping_cart::findOrFail($id);
+        $cartItem = shopping_cart::with('product')->where('user_id', Auth::id())->findOrFail($id);
         $cartItem->quantity = $request->input('quantity');
-        $cartItem->sub_total = $cartItem->quantity * $product->price;
+        $cartItem->sub_total = $cartItem->quantity * $cartItem->product->price;
         $cartItem->save();
-
-        return response()->json([
-            'status' => 'quary_ok',
-        ]);
+        return redirect()->back();
     }
 
     /**
@@ -107,20 +102,14 @@ class CartController extends Controller
      */
     public function destroy(Request $request,$id)
     {
-
-        $userId = Auth::id();
-        $productId = $request->input('productId');
-
-        // Hapus entri dari tabel cart
-        shopping_cart::where('user_id', $userId)
-            ->where('product_id', $productId)
+        // Hapus entri dari tabel cart berdasarkan ID keranjang
+        shopping_cart::where('user_id', Auth::id())
+            ->where('id', $id)
             ->delete();
 
+        $cartItems = shopping_cart::where('user_id', Auth::id())->get();
+        session()->put('cart', count($cartItems));
 
-        $cartItems = shopping_cart::where('user_id', Auth::id())->with(['product','product.images'])->orderBy('created_at', 'desc')->get();
-            session()->put('cart', count($cartItems));
-
-        return redirect()->back()->with('success', 'Delete Product success');
-
+        return redirect()->back();
     }
 }

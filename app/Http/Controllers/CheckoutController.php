@@ -25,16 +25,17 @@ class CheckoutController extends Controller
     }
     public function store(Request $request)
     {
-            $user_id = $request->input('user');
-            $cartItems = shopping_cart::where('user_id', $user_id)->get();
-            $checkouts = Checkout::where('user_id', $user_id)->get();
+        $user_id = Auth::id();
+        $cartItems = shopping_cart::where('user_id', $user_id)->get();
+        $checkouts = Checkout::where('user_id', $user_id)->get();
 
-            if ($cartItems->isEmpty()) {
-                return redirect()->route('cart.show')->with('error', 'Keranjang kosong. Tambahkan item ke keranjang terlebih dahulu.');
-            }
-            $grandTotal = $request->input('grand_total');
-    
-            if($checkouts->isEmpty()){
+        if ($cartItems->isEmpty()) {
+            return redirect()->route('cart.show');
+        }
+        
+        $grandTotal = $cartItems->sum('sub_total');
+
+        if($checkouts->isEmpty()){
             DB::transaction(function () use ($cartItems, $user_id, $grandTotal) {
                 $checkout = Checkout::create([
                     'user_id' => $user_id,
@@ -42,7 +43,8 @@ class CheckoutController extends Controller
                 ]);
             });
         }
-            return redirect()->route('checkout.show')->with('success', 'Checkout berhasil!');
+        
+        return redirect()->route('checkout.show');
     }
 
     public function deleteCheckout($id)

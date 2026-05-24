@@ -2,18 +2,22 @@
 use App\Models\Categories;
 use App\Models\Product;
 
-function getCategory()
-{
-    $categories = Categories::orderBy('created_at', 'ASC')->get();
+if (!function_exists('getCategory')) {
+    function getCategory()
+    {
+        $categories = Categories::orderBy('created_at', 'ASC')->get();
 
-    return $categories;
+        return $categories;
+    }
 }
 
-function getProduct()
-{
-    $products = Product::orderBy('created_at', 'ASC')->get();
+if (!function_exists('getProduct')) {
+    function getProduct()
+    {
+        $products = Product::orderBy('created_at', 'ASC')->get();
 
-    return $products;
+        return $products;
+    }
 }
 
 

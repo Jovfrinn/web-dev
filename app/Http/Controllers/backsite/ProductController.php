@@ -12,11 +12,18 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $product = Product::orderBy('created_at', 'asc')->with('images')->get();
+        $query = Product::orderBy('created_at', 'asc')->with('images', 'category');
+        
+        if ($request->has('search') && $request->search != '') {
+            $query->where('name_product', 'like', '%' . $request->search . '%');
+        }
 
-        $data['products'] = $product;
+        $products = $query->paginate(10);
+        $products->appends(['search' => $request->search]);
+
+        $data['products'] = $products;
 
         return view('backsite.product', $data);
     }

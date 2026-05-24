@@ -11,9 +11,17 @@ class StockController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::orderBy('created_at', 'DESC')->with('images')->get();
+        $search = $request->input('search');
+
+        $query = Product::orderBy('created_at', 'DESC')->with('images');
+
+        if ($search) {
+            $query->where('name_product', 'like', "%{$search}%");
+        }
+
+        $products = $query->paginate(10);
         $data['products'] = $products;
 
         return view('backsite.stock',$data);

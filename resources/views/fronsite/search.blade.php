@@ -1,34 +1,70 @@
 @extends('fronsite.layouts.navbar')
+@section('title', 'Pencarian: ' . $query . ' — TrendStore')
 @section('content')
-    <h1 style="font-size:20px; justify-content:center; text-align:center; margin-top:12px;"><span class="material-symbols-outlined">
-        manage_search
-        </span>Hasil Pencarian untuk '{{ $query  }}'</h1>
-    <div class="container-search">
-        <div class="content-search">
-            <div class="title-content-search"></div>
-            {{-- <div class="list slider-slick"> --}}
-                @foreach ($products as $data)
-                <div class="card-list-search d-flex flex-column mx-3 align-items-center">
-                    @foreach($data->images as $image)
-                    @if($image->is_thumb == 1)
-                    <img src="{{asset('assets/img/'.$image->imageName)}}" alt="">
-                    @endif
-                    @endforeach
-                    <div class="title-produk-search"><a href="{{route('detail', $data->id)}}">{{Str::limit($data['name_product'],8)}}</a></div>
-                    <div class="price-search">Rp {{number_format($data->price,0,'.','.')}}</div>
-                    </a>
-                    <form action="{{route('cart.add',$data->id)}}" method="POST">
-                        @csrf
-                        <input type="hidden" name="product_id" value="{{$data->id}}">
-                    <button class="btn cart-btn add-to-cart" data-product-id="{{ $data->id }}"><span class="material-symbols-outlined">
-                        add
-                        </span>Keranjang</button>
-                    </form>
-                </div>
-                @endforeach
 
-@if($products->isEmpty())
-    <p>Tidak ada produk yang ditemukan.</p>
-@else
-@endif
+<div class="ts-section">
+  <div class="container">
+    <div class="ts-page-header text-center mb-5">
+      <h1 class="ts-page-title">
+        <span class="material-symbols-outlined ts-title-icon">manage_search</span>
+        Hasil Pencarian
+      </h1>
+      <p class="text-muted mt-2">Menampilkan hasil untuk: <strong>"{{ $query }}"</strong></p>
+    </div>
+
+    @if($products->count() > 0)
+    <div class="row g-4">
+      @foreach ($products as $product)
+      <div class="col-6 col-md-4 col-lg-3">
+        <a href="{{ route('detail', $product->id) }}" class="ts-product-card">
+          <div class="ts-product-img-wrap">
+            @php $hasImage = false; @endphp
+            @foreach($product->images as $image)
+              @if($image->is_thumb == 1)
+                <img src="{{ asset('assets/img/'.$image->imageName) }}" alt="{{ $product->name_product }}" class="ts-product-img">
+                @php $hasImage = true; @endphp
+                @break
+              @endif
+            @endforeach
+            
+            @if(!$hasImage)
+              <div class="ts-product-img d-flex align-items-center justify-content-center bg-light text-muted">
+                <span class="material-symbols-outlined" style="font-size: 3rem;">image</span>
+              </div>
+            @endif
+
+            @if($product->stock <= 5 && $product->stock > 0)
+              <span class="ts-badge ts-badge-warning position-absolute top-0 end-0 m-2">Sisa {{ $product->stock }}</span>
+            @elseif($product->stock == 0)
+              <span class="ts-badge ts-badge-danger position-absolute top-0 end-0 m-2">Habis</span>
+            @endif
+          </div>
+          
+          <div class="ts-product-body">
+            <h3 class="ts-product-name">{{ Str::limit($product->name_product, 40) }}</h3>
+            <div class="ts-product-price">Rp {{ number_format($product->price, 0, '.', '.') }}</div>
+            <div class="ts-product-rating mt-1">
+              <div class="ts-stars">
+                <span class="material-symbols-outlined" style="font-size: 14px;">star</span>
+              </div>
+              <span class="ms-1">{{ number_format($product->averageRating(), 1) }}</span>
+              <span class="mx-1 text-muted">•</span>
+              <span class="text-muted">{{ $product->category->name_categories ?? 'Kategori' }}</span>
+            </div>
+          </div>
+        </a>
+      </div>
+      @endforeach
+    </div>
+    @else
+    <div class="ts-empty-state text-center py-5">
+      <span class="material-symbols-outlined" style="font-size: 4rem; color: #D1D5DB; margin-bottom: 1rem;">search_off</span>
+      <h3>Produk Tidak Ditemukan</h3>
+      <p class="text-muted">Kami tidak dapat menemukan produk yang sesuai dengan pencarian Anda.</p>
+      <a href="{{ url('/') }}" class="ts-btn ts-btn-primary mt-3">Kembali ke Beranda</a>
+    </div>
+    @endif
+  </div>
+</div>
+
 @endsection

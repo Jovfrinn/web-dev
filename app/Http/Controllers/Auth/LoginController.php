@@ -27,6 +27,14 @@ class LoginController extends Controller
      */
     protected $redirectTo = '/';
 
+    protected function authenticated(\Illuminate\Http\Request $request, $user)
+    {
+        if ($user->isAdmin()) {
+            return redirect()->route('admin.dashboard');
+        }
+        return redirect()->intended('/');
+    }
+
     /**
      * Create a new controller instance.
      *
