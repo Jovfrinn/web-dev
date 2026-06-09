@@ -46,7 +46,8 @@
                   @foreach($detail->product->images as $img)
                     @if($img->is_thumb == 1)
                       <img src="{{ asset('assets/img/'.$img->imageName) }}" alt="{{ $detail->product->name_product }}" class="rounded border" style="width:50px; height:50px; object-fit:cover;">
-                      @php $hasImg = true; @break @endphp
+                      @php $hasImg = true; @endphp
+                      @break
                     @endif
                   @endforeach
                   @if(!$hasImg)

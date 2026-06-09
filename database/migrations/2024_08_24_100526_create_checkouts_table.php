@@ -13,11 +13,12 @@ return new class extends Migration
     {
         Schema::create('checkouts', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('order_id')->constrained()->onDelete('cascade'); 
-            $table->foreignId('user_id')->constrained()->onDelete('cascade'); 
+            $table->foreignId('order_id')->nullable()->constrained()->onDelete('cascade');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('product_id')->constrained()->onDelete('cascade');
-            $table->integer('quantity')->unsigned(); 
-            $table->decimal('price', 12, 2); 
+            $table->integer('quantity')->unsigned();
+            $table->decimal('price', 12, 2);
+            $table->decimal('grand_total', 12, 2);
             $table->timestamps();
         });
     }

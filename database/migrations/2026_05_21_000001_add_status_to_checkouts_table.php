@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration {
     public function up(): void {
         Schema::table('checkouts', function (Blueprint $table) {
-            $table->enum('status', ['pending', 'processing', 'shipped', 'delivered', 'cancelled'])->default('pending')->after('grand_total');
+            $table->enum('status', ['pending', 'processing', 'shipped', 'delivered', 'cancelled'])->default('pending');
             $table->text('shipping_address')->nullable()->after('status');
             $table->string('notes')->nullable()->after('shipping_address');
         });
