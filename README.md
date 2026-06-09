@@ -1,66 +1,126 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# TrendStore — Platform E-Commerce TEFA Sekolah
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+> Solusi digital untuk unit usaha TEFA (Teaching Factory) agar siswa dan pelanggan dapat mengecek produk, stok, dan harga secara online — tanpa harus datang langsung ke tempat.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Latar Belakang
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Unit usaha TEFA di sekolah seringkali menghadapi masalah klasik: pelanggan (siswa, guru, maupun masyarakat sekitar) harus **datang langsung** ke lokasi hanya untuk mengetahui produk apa yang tersedia, berapa stoknya, dan berapa harganya. Hal ini tidak efisien dan membatasi jangkauan penjualan.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+**TrendStore** hadir sebagai solusi — sebuah platform e-commerce berbasis web yang memungkinkan pelanggan browsing produk, menambahkan ke keranjang, dan melakukan pembayaran kapan saja dan dari mana saja.
 
-## Learning Laravel
+---
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Fitur Utama
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### Untuk Pelanggan
+- **Katalog Produk** — Tampilan produk dengan foto, harga, dan stok real-time
+- **Filter Kategori & Pencarian** — Cari produk berdasarkan nama atau kategori
+- **Keranjang Belanja** — Tambah, ubah kuantitas, dan hapus item
+- **Checkout & Pembayaran Online** — Integrasi **Midtrans** (transfer bank, QRIS, kartu kredit, dll.)
+- **Riwayat Pesanan** — Pantau status pesanan dari pending hingga delivered
+- **Wishlist** — Simpan produk favorit untuk dibeli nanti
+- **Review Produk** — Berikan ulasan setelah pembelian
+- **Profil Pengguna** — Kelola data akun dan password
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Untuk Admin / Pengelola TEFA
+- **Dashboard Analytics** — Ringkasan pendapatan, total pesanan, produk terlaris, dan stok menipis
+- **Manajemen Produk** — CRUD produk lengkap dengan upload multi-foto
+- **Manajemen Stok** — Update stok per produk dengan riwayat perubahan
+- **Manajemen Pesanan** — Proses pesanan dan update status (pending → processing → shipped → delivered)
+- **Manajemen Kategori** — Tambah, edit, hapus kategori produk
+- **Manajemen Pengguna** — Kelola akun dan hak akses (Admin / Super Admin / Customer)
 
-## Laravel Sponsors
+---
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## Tech Stack
 
-### Premium Partners
+| Layer | Teknologi |
+|---|---|
+| Backend | PHP 8.1, Laravel 10 |
+| Frontend | Blade Templating, Bootstrap, Vite |
+| Database | MySQL |
+| Payment Gateway | Midtrans |
+| Authentication | Laravel Auth (session-based) |
+| Server | Apache / Nginx |
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+---
 
-## Contributing
+## Screenshot
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+> *(Tambahkan screenshot aplikasi di sini untuk memperkuat portofolio)*
 
-## Code of Conduct
+---
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## Cara Instalasi (Development)
 
-## Security Vulnerabilities
+### Prasyarat
+- PHP >= 8.1
+- Composer
+- Node.js & NPM
+- MySQL
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### Langkah-langkah
 
-## License
+```bash
+# 1. Clone repository
+git clone <url-repo>
+cd web-dev
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+# 2. Install dependencies
+composer install
+npm install
+
+# 3. Konfigurasi environment
+cp .env.example .env
+php artisan key:generate
+
+# 4. Sesuaikan database di .env
+# DB_DATABASE=tefa_db
+# DB_USERNAME=root
+# DB_PASSWORD=
+
+# 5. Konfigurasi Midtrans di .env
+# MIDTRANS_SERVER_KEY=your_server_key
+# MIDTRANS_CLIENT_KEY=your_client_key
+# MIDTRANS_IS_PRODUCTION=false
+
+# 6. Jalankan migrasi & seeder
+php artisan migrate --seed
+
+# 7. Build assets
+npm run dev
+
+# 8. Jalankan server
+php artisan serve
+```
+
+Akses aplikasi di `http://localhost:8000`
+
+### Akun Default (setelah seeder)
+
+| Role | Email | Password |
+|---|---|---|
+| Super Admin | admin@tefa.com | password |
+| Customer | customer@tefa.com | password |
+
+---
+
+## Struktur Role
+
+- **Customer** — Dapat browsing, beli produk, dan lihat riwayat pesanan
+- **Admin** — Kelola produk, stok, dan pesanan
+- **Super Admin** — Semua akses Admin + kelola pengguna dan role
+
+---
+
+## Tentang Pengembang
+
+Dibangun sebagai proyek nyata untuk mendukung digitalisasi unit usaha TEFA di lingkungan sekolah.
+
+Dikembangkan dengan Laravel 10 mengikuti arsitektur MVC, role-based access control, dan payment gateway Midtrans untuk transaksi yang aman dan terpercaya.
+
+---
+
+> Tertarik dengan proyek serupa? Hubungi saya untuk diskusi lebih lanjut.
